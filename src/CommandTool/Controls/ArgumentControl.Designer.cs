@@ -50,6 +50,7 @@ namespace CommandTool.Controls
             this.tbArgumentValue.Name = "tbArgumentValue";
             this.tbArgumentValue.Size = new System.Drawing.Size(153, 23);
             this.tbArgumentValue.TabIndex = 1;
+            this.tbArgumentValue.Validated += new System.EventHandler(this.tbArgumentValue_TextChanged);
             // 
             // ArgumentControl
             // 

@@ -27,7 +27,23 @@ namespace CommandTool
             _repository = new CommandRepository();
         }
 
-        private void btnEvaluate_Click(object sender, System.EventArgs e)
+        private async void btnSaveSyntax_Click(object sender, EventArgs e)
+        {
+            if (tbCommandName.Text == string.Empty)
+            {
+                MessageBox.Show(@"Please enter a name for the command.");
+                return;
+            }
+
+            await _repository.StoreCommand(new CommandSyntax
+            {
+                Name = tbCommandName.Text,
+                Syntax = tbCommandSyntax.Text,
+                Arguments = _commandArguments.Select(c => c.Key).ToArray()
+            });
+        }
+
+        private void tbCommandSyntax_TextChanged(object sender, EventArgs e)
         {
             var regx = new Regex("(?<=\\[)(.*?)(?=\\])");
 
@@ -49,12 +65,21 @@ namespace CommandTool
                     Name = controlName
                 };
 
+                argumentControl.ArgumentValueChanged += ArgumentControl_ArgumentValueChanged;
+
                 panelArguments.Controls.Add(argumentControl);
                 _commandArguments.Add(argumentControl.ArgumentKey, argumentControl);
             }
+
+            ParseCommand();
         }
 
-        private void btnParse_Click(object sender, EventArgs e)
+        private void ArgumentControl_ArgumentValueChanged(object sender, (string argumentName, string value) args)
+        {
+            ParseCommand();
+        }
+
+        private void ParseCommand()
         {
             var arguments = from c in _commandArguments
                             select new KeyValuePair<string, string>(c.Key, c.Value.ArgumentValue);
@@ -64,22 +89,6 @@ namespace CommandTool
                 .Build();
 
             tbParsedCommand.Text = command;
-        }
-
-        private async void btnSaveSyntax_Click(object sender, EventArgs e)
-        {
-            if (tbCommandName.Text == string.Empty)
-            {
-                MessageBox.Show(@"Please enter a name for the command.");
-                return;
-            }
-
-            await _repository.StoreCommand(new CommandSyntax
-            {
-                Name = tbCommandName.Text,
-                Syntax = tbCommandSyntax.Text,
-                Arguments = _commandArguments.Select(c => c.Key).ToArray()
-            });
         }
     }
 }

@@ -10,6 +10,10 @@ namespace CommandTool.Controls
 {
     public partial class ArgumentControl : UserControl
     {
+        public event EventHandler ArgumentValueChanged;
+        public delegate void EventHandler(object sender, (string argumentName, string value) args);
+
+
         private string _argumentKey;
         public string ArgumentKey
         {
@@ -26,6 +30,11 @@ namespace CommandTool.Controls
         public ArgumentControl()
         {
             InitializeComponent();
+        }
+
+        private void tbArgumentValue_TextChanged(object sender, EventArgs e)
+        {
+            ArgumentValueChanged?.Invoke(this, (ArgumentKey, ArgumentValue));
         }
     }
 }
