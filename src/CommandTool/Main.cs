@@ -15,10 +15,9 @@ namespace CommandTool
     {
         private readonly CommandBuilder _commandBuilder;
         private readonly CommandRepository _repository;
-        private Dictionary<string, ArgumentControl> _commandArguments = new Dictionary<string, ArgumentControl>();
+        private readonly Dictionary<string, ArgumentControl> _commandArguments = new Dictionary<string, ArgumentControl>();
 
         private CommandSyntax _command = new CommandSyntax();
-
 
         public Main()
         {
@@ -89,6 +88,16 @@ namespace CommandTool
                 .Build();
 
             tbParsedCommand.Text = command;
+        }
+
+        private async void Main_Load(object sender, EventArgs e)
+        {
+            var commands = await _repository.GetCommands();
+
+            lboxCommands.DataSource = commands;
+            lboxCommands.DisplayMember = nameof(CommandSyntax.Name);
+            lboxCommands.ValueMember = nameof(CommandSyntax.Key);
+
         }
     }
 }

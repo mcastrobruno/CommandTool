@@ -30,22 +30,31 @@ namespace CommandTool.Infrastructure
             return commandSyntax;
         }
 
+        public async Task<List<CommandSyntax>> GetCommands()
+        {
+            if (!_initialized)
+                await Initialize();
+
+            return _commands.Select(x => x.Value).ToList();
+        }
+
+
         private async Task<List<CommandSyntax>> LoadCommands()
         {
             using var sr = new StreamReader(_storageFilePath);
             return JsonConvert.DeserializeObject<List<CommandSyntax>>(await sr.ReadToEndAsync());
         }
 
-        public async Task Initialize()
+        private async Task Initialize()
         {
             if (!Directory.Exists(StorageFolder))
                 Directory.CreateDirectory(StorageFolder);
 
-            if (File.Exists(_storageFilePath))
-                return;
-
-            await using var sw = new StreamWriter(_storageFilePath);
-            await sw.WriteAsync(JsonConvert.SerializeObject(new List<CommandSyntax>()));
+            if (!File.Exists(_storageFilePath))
+            {
+                await using var sw = new StreamWriter(_storageFilePath);
+                await sw.WriteAsync(JsonConvert.SerializeObject(new List<CommandSyntax>()));
+            }
 
             var commands = await LoadCommands();
 

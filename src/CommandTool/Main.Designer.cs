@@ -37,8 +37,10 @@ namespace CommandTool
             this.lblCommandName = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
             this.tbParsedCommand = new System.Windows.Forms.RichTextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lboxCommands = new System.Windows.Forms.ListBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -49,7 +51,7 @@ namespace CommandTool
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbCommandSyntax.Location = new System.Drawing.Point(15, 27);
             this.tbCommandSyntax.Name = "tbCommandSyntax";
-            this.tbCommandSyntax.Size = new System.Drawing.Size(760, 23);
+            this.tbCommandSyntax.Size = new System.Drawing.Size(610, 23);
             this.tbCommandSyntax.TabIndex = 0;
             this.tbCommandSyntax.TextChanged += new System.EventHandler(this.tbCommandSyntax_TextChanged);
             // 
@@ -71,13 +73,13 @@ namespace CommandTool
             this.panelArguments.AutoSize = true;
             this.panelArguments.Location = new System.Drawing.Point(15, 56);
             this.panelArguments.Name = "panelArguments";
-            this.panelArguments.Size = new System.Drawing.Size(760, 137);
+            this.panelArguments.Size = new System.Drawing.Size(610, 137);
             this.panelArguments.TabIndex = 3;
             // 
             // btnSaveSyntax
             // 
             this.btnSaveSyntax.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnSaveSyntax.Location = new System.Drawing.Point(684, 18);
+            this.btnSaveSyntax.Location = new System.Drawing.Point(535, 18);
             this.btnSaveSyntax.Name = "btnSaveSyntax";
             this.btnSaveSyntax.Size = new System.Drawing.Size(75, 23);
             this.btnSaveSyntax.TabIndex = 6;
@@ -91,7 +93,7 @@ namespace CommandTool
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbCommandName.Location = new System.Drawing.Point(5, 18);
             this.tbCommandName.Name = "tbCommandName";
-            this.tbCommandName.Size = new System.Drawing.Size(675, 23);
+            this.tbCommandName.Size = new System.Drawing.Size(526, 23);
             this.tbCommandName.TabIndex = 7;
             // 
             // lblCommandName
@@ -112,7 +114,7 @@ namespace CommandTool
             this.panel1.Controls.Add(this.tbCommandName);
             this.panel1.Location = new System.Drawing.Point(15, 432);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(759, 45);
+            this.panel1.Size = new System.Drawing.Size(610, 45);
             this.panel1.TabIndex = 9;
             // 
             // panel2
@@ -123,8 +125,20 @@ namespace CommandTool
             this.panel2.Controls.Add(this.label2);
             this.panel2.Location = new System.Drawing.Point(15, 199);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(759, 227);
+            this.panel2.Size = new System.Drawing.Size(610, 227);
             this.panel2.TabIndex = 10;
+            // 
+            // tbParsedCommand
+            // 
+            this.tbParsedCommand.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbParsedCommand.Location = new System.Drawing.Point(3, 36);
+            this.tbParsedCommand.Name = "tbParsedCommand";
+            this.tbParsedCommand.ReadOnly = true;
+            this.tbParsedCommand.Size = new System.Drawing.Size(604, 187);
+            this.tbParsedCommand.TabIndex = 12;
+            this.tbParsedCommand.Text = "";
             // 
             // label2
             // 
@@ -137,23 +151,31 @@ namespace CommandTool
             this.label2.TabIndex = 11;
             this.label2.Text = "Parsed Command";
             // 
-            // tbParsedCommand
+            // lboxCommands
             // 
-            this.tbParsedCommand.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbParsedCommand.Location = new System.Drawing.Point(3, 36);
-            this.tbParsedCommand.Name = "tbParsedCommand";
-            this.tbParsedCommand.ReadOnly = true;
-            this.tbParsedCommand.Size = new System.Drawing.Size(753, 187);
-            this.tbParsedCommand.TabIndex = 12;
-            this.tbParsedCommand.Text = "";
+            this.lboxCommands.FormattingEnabled = true;
+            this.lboxCommands.ItemHeight = 15;
+            this.lboxCommands.Location = new System.Drawing.Point(631, 27);
+            this.lboxCommands.Name = "lboxCommands";
+            this.lboxCommands.Size = new System.Drawing.Size(286, 454);
+            this.lboxCommands.TabIndex = 11;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(631, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(103, 15);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Saved Commands";
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(787, 488);
+            this.ClientSize = new System.Drawing.Size(919, 488);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lboxCommands);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelArguments);
@@ -161,6 +183,7 @@ namespace CommandTool
             this.Controls.Add(this.tbCommandSyntax);
             this.Name = "Main";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Main_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -182,6 +205,8 @@ namespace CommandTool
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.RichTextBox tbParsedCommand;
+        private System.Windows.Forms.ListBox lboxCommands;
+        private System.Windows.Forms.Label label3;
     }
 }
 
