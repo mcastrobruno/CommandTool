@@ -18,10 +18,7 @@ namespace CommandTool.Test
         public void Should_parse_command_with_no_placeholders_and_arguments()
         {
             //arrange
-            var command = new Command();
-            command.AddStatement("pcsp");
-
-            _builder.WithCommand(command).Build();
+            _builder.WithCommand("pcsp").Build();
 
             //act
             var stringCommand = _builder.Build();
@@ -34,11 +31,8 @@ namespace CommandTool.Test
         public void Should_replace_placeholder_with_one_placeholder()
         {
             //arrange
-            var command = new Command();
-            command.AddStatement("pcsp [username]");
-
             _builder
-                .WithCommand(command)
+                .WithCommand("pcsp [username]")
                 .WithArguments(new KeyValuePair<string, string>("username", "testuser"))
                 .Build();
 
@@ -53,11 +47,8 @@ namespace CommandTool.Test
         public void Should_replace_placeholder_with_more_than_one_placeholders()
         {
             //arrange
-            var command = new Command();
-            command.AddStatement("pcsp [username]@[serveraddress]");
-
             _builder
-                .WithCommand(command)
+                .WithCommand("pcsp [username]@[serveraddress]")
                 .WithArguments(
                     new KeyValuePair<string, string>("username", "testuser"),
                     new KeyValuePair<string, string>("serveraddress", "localhost"))
