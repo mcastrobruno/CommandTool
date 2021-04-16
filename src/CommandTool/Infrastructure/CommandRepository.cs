@@ -59,6 +59,8 @@ namespace CommandTool.Infrastructure
             var commands = await LoadCommands();
 
             _commands = commands.ToDictionary(c => c.Key);
+
+            _initialized = true;
         }
     }
 }

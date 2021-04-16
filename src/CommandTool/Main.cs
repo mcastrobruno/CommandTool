@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using CommandTool.Controls;
 using CommandTool.Domain;
@@ -28,12 +29,15 @@ namespace CommandTool
 
         private async void Main_Load(object sender, EventArgs e)
         {
-            var commands = await _repository.GetCommands();
+            await LoadData();
+        }
 
+        private async Task LoadData()
+        {
+            var commands = await _repository.GetCommands();
             lboxCommands.DataSource = commands;
             lboxCommands.DisplayMember = nameof(CommandSyntax.Name);
             lboxCommands.ValueMember = nameof(CommandSyntax.Key);
-
         }
 
         private async void btnSaveCommand_Click(object sender, EventArgs e)
@@ -50,6 +54,8 @@ namespace CommandTool
                 Syntax = commandControl1.Syntax,
                 Arguments = commandControl1.Arguments
             });
+
+            await LoadData();
         }
     }
 }
